@@ -2,6 +2,7 @@ package com.baidu.fsg.uid;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 @ConfigurationProperties("uid")
 public class UidProperties {
@@ -21,13 +22,14 @@ public class UidProperties {
     private int seqBits = 13;
 
     /**
-     * 时间基点. 例如 2019-07-05
+     * 时间基点. 例如 2019-07-11
      */
-    private String epochStr = "2019-07-05";
+    private String epochStr = "2019-07-11";
     /**
      * Cache Uid 配置属性
      */
-    private UidCacheProperties cache;
+    @NestedConfigurationProperty
+    private UidCacheProperties cache = new UidCacheProperties();
     public int getTimeBits() {
         return timeBits;
     }
@@ -68,6 +70,15 @@ public class UidProperties {
 
         }
     }
+
+    public UidCacheProperties getCache() {
+        return cache;
+    }
+
+    public void setCache(UidCacheProperties cache) {
+        this.cache = cache;
+    }
+
     /**
      * Cache Uid 配置属性
      */
